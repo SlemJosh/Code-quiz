@@ -19,7 +19,7 @@
     <!--Our header is mostly a navigation bar, we want on the left the highscores, and a running timer on the right side.-->
     <header class="headerBox">
         <nav class="navLeft">
-            <a class="highScore" onclick="getScore()" href="#">
+            <a class="highScore" onclick="getScore()" href="highscores.html">
                 <h2 class="viewHighscore">View High Scores!</h2>
             </a>
         </nav>
@@ -36,7 +36,7 @@
             <h4>Try to answer the following code-related questiones within the time limit.<br>
                 Keep in mind that incorrect answers will penalize your score/time by ten seconds!<br>
                 Good luck! Hit Start to begin!</h4>
-            <button onclick="start()">Start!</button>
+            <button id="start">Start!</button>
         </div>
         <div id="answerOptions">
 

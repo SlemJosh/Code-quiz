@@ -65,3 +65,12 @@ button:hover{
     transition-duration: 0.4s;
     background-color: green;
 }
+
+.container2{
+    width: 50%;
+    margin: auto;
+    text-align:center;
+    justify-content: center;
+    padding: 12vh;
+    margin-top: 20vh;
+}
