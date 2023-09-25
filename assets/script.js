@@ -127,34 +127,49 @@ function endGame() {
 
 // We want the user to input a high score.  So we create a function that will allow us to use the local Storage to keep items so that they can compare. 
 function inputScore() {
-    var highScore = localStorage.getItem("highScore");
-    if (score > highScore) {
-        localStorage.setItem("highScore", score);
-        localStorage.setItem("name", document.getElementById("initials").value);
-    } else {
-        localStorage.getItem("highScore");
-        localStorage.getItem("name")
-    }
+    var initials = document.getElementById("initials").value;
+    var scoreEntry = {name: initials, score: score};
+
+    var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+    highScores.push(scoreEntry);
+
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+
     answerOptions.textContent = "";
     getScore();
     
 }
 
+
+//Chat GPT helping save those scores
+
+function saveHighScore(name, score) {
+    var highScores = getHighScores();
+    highScores.push({ name: name, score: score });
+    highScores.sort(function (a, b) {
+        return b.score - a.score;
+    });
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
+
 // We need to calculate the score that the user got.  
 function getScore() {
 
     var quizContent =
-        `<h2>` + localStorage.getItem("name") + `'s highscore is:</h2>
+        `<h2>` + localStorage.getItem("initialsEl") + ` has the current highscore at:</h2>
     <h1>` + localStorage.getItem("highScore") + `</h1><br>
     <button onclick="clearScore()">Clear score</button><button onclick="clearGame()">Play again!</button> `;
 
     document.getElementById("quiz").innerHTML = quizContent;
 }
 
+
 // We want to be able to clear the high scores
 function clearScore() {
     localStorage.setItem("highScore", "");
-    localStorage.setItem("name", "");
+    localStorage.setItem("initialsEl", "");
 
     clearGame();
 }
@@ -200,3 +215,25 @@ function correct() {
 }
 // Chat GPT helping me get those high scores displayed
 
+
+function getHighScores() {
+    var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    return highScores;
+}
+
+function displayHighScores() {
+    var highScoreslist = document.getElementById("highScoreslist");
+    var highScores = getHighScores();
+
+    // Loop through high scores and add them to the list
+    for (var i = 0; i < highScores.length; i++) {
+        var listItem = document.createElement("li");
+        listItem.textContent = highScores[i].name + " - " + highScores[i].score;
+        highScoreslist.appendChild(listItem);
+    }
+}
+
+// Call the displayHighScores function when the page loads
+window.onload = function () {
+    displayHighScores();
+};
