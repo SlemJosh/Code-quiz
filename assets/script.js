@@ -25,3 +25,6 @@ var timer;
 
 // Here's where we initiate the game after hitting our button on the page.  The button is already primed to start a function called start, so we need a function with that name.
 
+function start(){
+    
+}
