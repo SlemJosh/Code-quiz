@@ -57,3 +57,8 @@ button{
     font-size: 25px;
     margin: 15px 15px 15px 15px;
 }
+
+button:hover{
+    transition-duration: 0.4s;
+    background-color: green;
+}
