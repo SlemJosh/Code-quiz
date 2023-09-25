@@ -9,15 +9,16 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Skranji&display=swap" rel="stylesheet">
-
+    <!--Main Body we don't need a header on this page.-->
     <body>
+        <!-- Similiar to our box with the questions on the other page, we wanted to have a box that we can stylize and populate with the information we want.  It utilizes both our CSS and Javascript-->
         <div class="container2">
             <h1>Highscores</h1>
             <ul id="highScoreslist"></ul>
-
             <a href="index.html"><button>Go Back</button></a>
             <button id="clearHighscoresbutton">Clear High Scores</button>
         </div>
+    <!--When it came time to link to our script page.  We kept getting an error about one line of script.  So for the time being and possibly for the duration, we are just sticking that one script command right on this html page.-->
         <script>
             window.onload = function () {
         displayHighscores();
