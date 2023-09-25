@@ -12,11 +12,26 @@ var questions = [
         answer: "3. Parenthesis"
 
     },
+    {
+        title: "Arrays in JavaScript can be used to store _______.",
+        choices:["1. Numbers and Strings","2. Other Arrays","3. Booleans","4. All of the Above"],
+        answer:"4. All of the Above"
+    },
+    {
+        title: "String values must be enclosed within ______ when being assigned to variables.",
+        choices:["1. Commas", "2. Curly Brackets", "3. Quotes","4. Parenthesis"],
+        answer: "4. Parenthisis"
+    },
+    {
+        title: "A very useful tool used during development and debugging for print content to the debugger is:",
+        choices: ["1. JavaScript", "2. Terminal/Bash", "3. For Loops", "4. Console Log"],
+        answer: "4. Console log"
+    }
 ]
 
 // Other variables we will be using, however they will be used more regularly and dependant on other factors, such as the timer or the score.
 
-var answerOptions = docmument.querySelector("answerOptions")
+var answerOptions = document.querySelector("answerOptions")
 var showTime = document.querySelector("timeLeft")
 var score = 0;
 var currentQuestion = -1;
@@ -31,15 +46,15 @@ function start() {
     // Pushing that timer over to our HTML
     showTime.innerHTML = timeLeft
     // Need our timer to be counting down until 0.  At 0, we call a new function endGame.  As long as the timer is above 0, it will go onto another function nextQuestion.
-    timer = setInterval(function () {
+    timer = setInterval(function (){
         timeLeft--;
-        showTime.innerHTML = timeLeft
+        showTime.innerHTML = timeLeft;
 
         if (timeLeft <= 0) {
             clearInterval(timer)
             endGame()
         }
-    }, 1000)
+    },1000)
     nextQuestion()
 }
 
