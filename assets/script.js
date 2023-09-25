@@ -27,7 +27,7 @@ var questions = [
     {
         question: "The 3 basic object attributes in Javascript are:",
         choices: ["1. Class, prototype, object's parameters.", "2. Class, prototype, object's extensible flag.", "3. Class, parameters, object's extensible flag.", "4. Class, parameters, prototype."],
-        answer: "2. Class, prototype, object's extesnsible flag."
+        answer: "2. Class, prototype, object's extensible flag."
     },
     {
         question: "Commonly used data types DO NOT include:",
@@ -53,7 +53,7 @@ var questions = [
     {
         question: "A very useful tool used during development and debugging for print content to the debugger is:",
         choices: ["1. JavaScript", "2. Terminal/Bash", "3. For Loops", "4. Console Log"],
-        answer: "4. Console log"
+        answer: "4. Console Log"
     }
 
 ]
@@ -130,21 +130,21 @@ function inputScore() {
     var highScore = localStorage.getItem("highScore");
     if (score > highScore) {
         localStorage.setItem("highScore", score);
-        localStorage.setItem("initialsEl", document.getElementById("initials").value);
+        localStorage.setItem("name", document.getElementById("initials").value);
     } else {
         localStorage.getItem("highScore");
-        localStorage.getItem("initialsEl")
+        localStorage.getItem("name")
     }
     answerOptions.textContent = "";
-    //getScore();
-    inputHighScore();
+    getScore();
+    
 }
 
 // We need to calculate the score that the user got.  
-/*function getScore() {
+function getScore() {
 
     var quizContent =
-        `<h2>` + localStorage.getItem("initialsEl") + `'s highscore is:</h2>
+        `<h2>` + localStorage.getItem("name") + `'s highscore is:</h2>
     <h1>` + localStorage.getItem("highScore") + `</h1><br>
     <button onclick="clearScore()">Clear score</button><button onclick="clearGame()">Play again!</button> `;
 
@@ -154,11 +154,11 @@ function inputScore() {
 // We want to be able to clear the high scores
 function clearScore() {
     localStorage.setItem("highScore", "");
-    localStorage.setItem("initialsEl", "");
+    localStorage.setItem("name", "");
 
     clearGame();
 }
-*/
+
 
 // Do we want to play again.  We can start over.
 function clearGame() {
@@ -173,7 +173,7 @@ function clearGame() {
     var quizContent = `
     <h1>Coding Quiz Challenge</h1>
     <h4>Try to answer the following code-related questiones within the time limit.<br>
-        Keep in mind that incorrect answers will penalize your score/time by ten seconds!<br>
+        Keep in mind that incorrect answers will penalize your time by ten seconds!<br>
         Good luck! Hit Start to begin!</h4>
     <button onclick="start()">Start!</button>`;
 
@@ -185,7 +185,7 @@ function wrong() {
     answerOptions.setAttribute("class", "border-top mt-3 pt-3")
     answerOptions.setAttribute("style", "font-size: 20px; color: black; font-weight: bold; text-align: center;");
     answerOptions.textContent = "You got the answer wrong. -15 seconds!";
-    timeLeft -= 15;
+    timeLeft -= 10;
     nextQuestion()
 }
 
@@ -200,51 +200,3 @@ function correct() {
 }
 // Chat GPT helping me get those high scores displayed
 
-// Function to display high scores on the HTML page
-function displayHighScores() {
-  var highScoresList = document.getElementById("highScoresList");
-  var highScores = getHighScores();
-
-  // Clear the existing list
-  highScoresList.innerHTML = "";
-
-  // Loop through high scores and add them to the list
-  for (var i = 0; i < highScores.length; i++) {
-    var listItem = document.createElement("li");
-    listItem.textContent = highScores[i].initials + " - " + highScores[i].score;
-    highScoresList.appendChild(listItem);
-  }
-}
-
-// Call the displayHighScores function when the page loads
-window.onload = function () {
-  displayHighScores();
-};
-
-// Function to retrieve high scores from local storage
-function getHighScores() {
-  var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-  return highScores;
-}
-
-// Function to input and save a new high score
-function inputHighScore() {
-  var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-
-  // Create a new high score entry
-  var newHighScore = {
-    initials: document.getElementById("initials").value,
-    score: score, // You can modify this to get the score from your quiz code
-  };
-
-  // Add the new high score to the array
-  highScores.push(newHighScore);
-
-  // Sort the high scores by score (descending order)
-  highScores.sort(function (a, b) {
-    return b.score - a.score;
-  });
-
-  // Save the updated high scores to local storage
-  localStorage.setItem("highScores", JSON.stringify(highScores));
-}
