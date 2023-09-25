@@ -151,3 +151,12 @@ function wrong(){
     next()
 }
 
+// When the user is answering questions. They will get points if the answer is correct. So we need to tell them they got it right, in addition adding points to their total score.
+function correct(){
+    answerMenu.setAttribute("class", "border-top mt-3 pt-3")
+    answerMenu.setAttribute("style", "font-size: 20px; color: white; font-weight: bold; text-align: center;");
+    answerMenu.textContent = "You got the answer right!";
+    score += 10;
+    next();
+    
+}
