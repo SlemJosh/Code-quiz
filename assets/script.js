@@ -11,7 +11,7 @@ var questions = [
         choices: ["1. Quotes", "2. Curly Brackets", "3. Parenthesis", "4. Square Brackets"],
         answer: "3. Parenthesis"
 
-    }
+    },
 ]
 
 // Other variables we will be using, however they will be used more regularly and dependant on other factors, such as the timer or the score.
