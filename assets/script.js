@@ -1,12 +1,5 @@
-
-var answerOptions = document.querySelector("#answerOptions")
-var showTime = document.querySelector("#timeLeft")
-var score = 0;
-var currentQuestion = -1;
-var timeLeft = 0;
-var timer;
-
 // First we are going to list out our question as a variable array known as questions.  Each question is basically a card that has the question, options, and the answer, which will be hidden to the user at first.
+// They are formated in a 3 line pattern.  This will allow us to use the same box on our HTML page to just plug in each line for each value.
 
 var questions = [
     {
@@ -58,9 +51,13 @@ var questions = [
 
 ]
 
-
 // Other variables we will be using, however they will be used more regularly and dependant on other factors, such as the timer or the score.
-
+var answerOptions = document.querySelector("#answerOptions")
+var showTime = document.querySelector("#timeLeft")
+var score = 0;
+var currentQuestion = -1;
+var timeLeft = 0;
+var timer;
 
 // Here's where we initiate the game after hitting our button on the page.  The button is already primed to start a function called start, so we need a function with that name.
 
@@ -76,10 +73,10 @@ function start() {
 
         if (timeLeft <= 0) {
             clearInterval(timer)
-            endGame()
+            endGame() // When the timer runs out, start this function.
         }
-    }, 1000)
-    nextQuestion()
+    }, 1000)  
+    nextQuestion()  // We want to initialize cycling through the questions
 }
 
 // This is the function that will run as long as there is time still running on the clock
@@ -91,18 +88,21 @@ function nextQuestion() {
         endGame()
         return;
     }
+    // By uzing the quizContent, we are basically just replacing those 3 lines on our HTML page, and then we can fill them with the appropriate values.
 
     var quizContent = "<h2>" + questions[currentQuestion].question + "<h2>"
+    
+    //We have a loop to go throu gh our questions.  The only way this ends before it goes through all the questions is if the timer ends, which is called in the earlier function
 
     for (var buttonLoop = 0; buttonLoop < questions[currentQuestion].choices.length; buttonLoop++) {
         var buttonCode = "<button onclick='[ANS]'>[CHOICE]</button>";
         buttonCode = buttonCode.replace("[CHOICE]", questions[currentQuestion].choices[buttonLoop]);
 
         if (questions[currentQuestion].choices[buttonLoop] == questions[currentQuestion].answer) {
-            buttonCode = buttonCode.replace("[ANS]", "right()");
+            buttonCode = buttonCode.replace("[ANS]", "right()");  // Had to make sure that our input in the answer field was exactly the same or else we would get a wrong answer. It will run the right function.
 
         } else {
-            buttonCode = buttonCode.replace("[ANS]", "wrong()");
+            buttonCode = buttonCode.replace("[ANS]", "wrong()");  // If that info does not match, it will be triggered as wrong. No need to set values for true and false or == or !=. It will run the wrong function.
         }
         quizContent += buttonCode
     }
@@ -110,11 +110,44 @@ function nextQuestion() {
 
 }
 
-// If the timer runs out, or the user has completed all the questions we need that function endGame.
+// When the user is answering questions. They will be presented this if there answer is not the correct one.  We also need to penalize the timer as mentioned before the quiz begain.
+// A couple things with these functions.  We needed to stylize the text, and decided that having some color would add to the nature of it.   
+// A big thing was that we need that bottom text to dissapear at some point. Otherwise it will remain even when the game has ended.  
+function wrong() {
+    answerOptions.setAttribute("class", "border-top mt-3 pt-3")
+    answerOptions.setAttribute("style", "font-size: 20px; color: red; font-weight: bold; text-align: center;");  
+    answerOptions.textContent = "You got the answer wrong. -15 seconds!";   // Based on our criteria, we need a penalty.
+    timeLeft -= 10;  //Pentalty
+    nextQuestion()
+
+    setTimeout(clearAnswerOptions, 2000);  // We want it to time out once you move onto the next question after a period of time.
+}
+
+// When the user is answering questions. They will get points if the answer is correct. So we need to tell them they got it right, in addition adding points to their total score.
+function right() {
+    answerOptions.setAttribute("class", "border-top mt-3 pt-3")
+    answerOptions.setAttribute("style", "font-size: 20px; color: green; font-weight: bold; text-align: center;");
+    answerOptions.textContent = "You got the answer right! +10 points!"; // Based on our criteria, we need a reward.
+    score += 10; //Reward
+    nextQuestion();
+
+    setTimeout(clearAnswerOptions, 2000);  // We want it to time out once you move onto the next question after a period of time.
+}
+
+//We needed a function to just make those value blank and invisible again. This will trigger upon a timer, but also we will have it present itself upon the game ending as well.
+function clearAnswerOptions() {
+    answerOptions.textContent = "";
+}
+
+// End Game
+// The Game ends when either the timer runs out, or if the user manages to get through all the questions. Our earlier function with the timer will automatically trigger this one.
+// We however also want to clear that timer once we hit this point.  We don't need a timer running down forever and ever.   
 
 function endGame() {
-    clearInterval(timer);
+    clearInterval(timer);  // Clears the timer.  It may show a negative number based on wrong answers given previously, but only briefly.
 
+    // Once again we are able to use our container and just plug in some values and text on those 3 lines.   
+    // We want to show the user their score, and give them a place to enter some initials which we will store upon them hitting a button.
     var quizContent = `
         <h2>Game over!</h2>
         <h3>You got a ` + score + ` /90!</h3>
@@ -126,7 +159,9 @@ function endGame() {
     clearAnswerOptions();
 }
 
-// We want the user to input a high score.  So we create a function that will allow us to use the local Storage to keep items so that they can compare. 
+// In the previous function we had the user input some information.  We need to put that somewhere, and the previous function will call this next one to run.
+// Here we are taking the intials and the score and adding them to a string to which we can use to populate our high scores page.
+
 function inputScore() {
     var initials = document.getElementById("initials").value;
     var scoreEntry = {name: initials, score: score};
@@ -203,28 +238,6 @@ function clearGame() {
     document.getElementById("quiz").innerHTML = quizContent;
 }
 
-// When the user is answering questions. They will be presented this if there answer is not the correct one.  We also need to penalize the timer as mentioned before the quiz begain.
-function wrong() {
-    answerOptions.setAttribute("class", "border-top mt-3 pt-3")
-    answerOptions.setAttribute("style", "font-size: 20px; color: red; font-weight: bold; text-align: center;");
-    answerOptions.textContent = "You got the answer wrong. -15 seconds!";
-    timeLeft -= 10;
-    nextQuestion()
-
-    setTimeout(clearAnswerOptions, 2000);
-}
-
-// When the user is answering questions. They will get points if the answer is correct. So we need to tell them they got it right, in addition adding points to their total score.
-function right() {
-    answerOptions.setAttribute("class", "border-top mt-3 pt-3")
-    answerOptions.setAttribute("style", "font-size: 20px; color: green; font-weight: bold; text-align: center;");
-    answerOptions.textContent = "You got the answer right! +10 points!";
-    score += 10;
-    nextQuestion();
-
-    setTimeout(clearAnswerOptions, 2000);
-
-}
 // Chat GPT helping me get those high scores displayed
 
 
