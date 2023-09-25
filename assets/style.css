@@ -9,7 +9,7 @@ h1,h2,h4 {
 /* Header Content */
 .headerBox {
     display: block;
-    background-color: white;
+    background-color: lightskyblue;
     display: inline-block;
     width: 95vw;
     margin: 5px;
