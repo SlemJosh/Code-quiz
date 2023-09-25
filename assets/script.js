@@ -1,56 +1,3 @@
-// First we are going to list out our question as a variable array known as questions.  Each question is basically a card that has the question, options, and the answer, which will be hidden to the user at first.
-
-var questions = [
-    {
-        title: "Javascript is an _______ language?",
-        choices: ["1. Object-Oriented", "2. Object-Based", "3. Procedural", "4. None of the above"],
-        answer: "1. Object-Oriented"
-    },
-    {
-        title: "Which of the following keywords is used to define a variable in Javascript?",
-        choices: ["1. var", "2. let", "3. Both A and B", "4. None of the above"],
-        answer: "3. Both A and B"
-    },
-    {
-        title: "Which of the following methods is used to access HTML elements using Javascript?",
-        choices: ["1. getElementbyID()","2. getElementsByClassName()", "3. Both A and B", "4. None of the above"],
-        answer: "3. Both A and B"
-    },
-    {
-        title: "The 3 basic object attributes in Javascript are:",
-        choices: ["1. Class, prototype, object's parameters.", "2. Class, prototype, object's extensible flag.", "3. Class, parameters, object's extensible flag.", "4. Class, parameters, prototype."],
-        anser: "2. Class, prototype, object's extesnsible flag."
-    },
-    {
-        title: "Commonly used data types DO NOT include:",
-        choices: ["1. Strings", "2. Booleans", "3. Alerts", "4. Numbers"],
-        answer: "3. Alerts"
-    },
-    {
-        title: "The condition in an if / else statement is enclosed with _______.",
-        choices: ["1. Quotes", "2. Curly Brackets", "3. Parenthesis", "4. Square Brackets"],
-        answer: "3. Parenthesis"
-
-    },
-    {
-        title: "Arrays in JavaScript can be used to store _______.",
-        choices:["1. Numbers and Strings","2. Other Arrays","3. Booleans","4. All of the Above"],
-        answer:"4. All of the Above"
-    },
-    {
-        title: "String values must be enclosed within ______ when being assigned to variables.",
-        choices:["1. Commas", "2. Curly Brackets", "3. Quotes","4. Parenthesis"],
-        answer: "4. Parenthisis"
-    },
-    {
-        title: "A very useful tool used during development and debugging for print content to the debugger is:",
-        choices: ["1. JavaScript", "2. Terminal/Bash", "3. For Loops", "4. Console Log"],
-        answer: "4. Console log"
-    }
-        
-]
-
-// Other variables we will be using, however they will be used more regularly and dependant on other factors, such as the timer or the score.
 
 var answerOptions = document.querySelector("answerOptions")
 var showTime = document.querySelector("timeLeft")
@@ -59,131 +6,196 @@ var currentQuestion = -1;
 var timeLeft = 0;
 var timer;
 
+// First we are going to list out our question as a variable array known as questions.  Each question is basically a card that has the question, options, and the answer, which will be hidden to the user at first.
+
+var questions = [
+    {
+        question: "Javascript is an _______ language?",
+        choices: ["1. Object-Oriented", "2. Object-Based", "3. Procedural", "4. None of the above"],
+        answer: "1. Object-Oriented"
+    },
+    {
+        question: "Which of the following keywords is used to define a variable in Javascript?",
+        choices: ["1. var", "2. let", "3. Both A and B", "4. None of the above"],
+        answer: "3. Both A and B"
+    },
+    {
+        question: "Which of the following methods is used to access HTML elements using Javascript?",
+        choices: ["1. getElementbyID()","2. getElementsByClassName()", "3. Both A and B", "4. None of the above"],
+        answer: "3. Both A and B"
+    },
+    {
+        question: "The 3 basic object attributes in Javascript are:",
+        choices: ["1. Class, prototype, object's parameters.", "2. Class, prototype, object's extensible flag.", "3. Class, parameters, object's extensible flag.", "4. Class, parameters, prototype."],
+        anser: "2. Class, prototype, object's extesnsible flag."
+    },
+    {
+        question: "Commonly used data types DO NOT include:",
+        choices: ["1. Strings", "2. Booleans", "3. Alerts", "4. Numbers"],
+        answer: "3. Alerts"
+    },
+    {
+        question: "The condition in an if / else statement is enclosed with _______.",
+        choices: ["1. Quotes", "2. Curly Brackets", "3. Parenthesis", "4. Square Brackets"],
+        answer: "3. Parenthesis"
+
+    },
+    {
+        question: "Arrays in JavaScript can be used to store _______.",
+        choices:["1. Numbers and Strings","2. Other Arrays","3. Booleans","4. All of the Above"],
+        answer:"4. All of the Above"
+    },
+    {
+        question: "String values must be enclosed within ______ when being assigned to variables.",
+        choices:["1. Commas", "2. Curly Brackets", "3. Quotes","4. Parenthesis"],
+        answer: "4. Parenthisis"
+    },
+    {
+        question: "A very useful tool used during development and debugging for print content to the debugger is:",
+        choices: ["1. JavaScript", "2. Terminal/Bash", "3. For Loops", "4. Console Log"],
+        answer: "4. Console log"
+    }
+        
+]
+
+
+// Other variables we will be using, however they will be used more regularly and dependant on other factors, such as the timer or the score.
+
+
 // Here's where we initiate the game after hitting our button on the page.  The button is already primed to start a function called start, so we need a function with that name.
 
 function start() {
-	countdown();
-	displayquestion();
+    // We first need to set the time limit. Based on the number of questions this will change.  But we are setting a base timer of 60 seconds to begin with.
+    timeLeft = 90;
+    // Pushing that timer over to our HTML
+    showTime.innerHTML = timeLeft
+    // Need our timer to be counting down until 0.  At 0, we call a new function endGame.  As long as the timer is above 0, it will go onto another function nextQuestion.
+    timer = setInterval(function (){
+        timeLeft--;
+        showTime.innerHTML = timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(timer)
+            endGame()
+        }
+    },1000)
+    nextQuestion()
 }
 
-function countdown() {
-	var interval = setInterval(function () {
-		if (questionindex < 4 && timeLeft > 0) {
-			timerElement.textContent = 'Time: ' + timeLeft;
-			timeLeft--;
-		} else if (timeLeft === 1) {
-			timerElement.textContent = 'Time: ' + timeLeft;
-			timeLeft--;
-		} else {
-			timerElement.textContent = 'Time: ' + timeLeft;
-			clearInterval(interval);
-			score();
-		}
-	}, 1000);
+// This is the function that will run as long as there is time still running on the clock
+function nextQuestion() {
+
+    currentQuestion++;
+    // We need to establish that once we hit the end of the quiz, regardless of what time remains, we need to call the endGame function to run.
+    if (currentQuestion > questions.length - 1) {
+        endGame()
+        return;
+    }
+
+    var quizContent = "<h2>" + questions[currentQuestion].title + "<h2>"
+
+    for (var buttonLoop = 0; buttonLoop < questions[currentQuestion].choices.length; buttonLoop++) {
+        var buttonCode = "<button onclick='[ANS]'>[CHOICE]</button>";
+        buttonCode = buttonCode.replace("[CHOICE]", questions[currentQuestion].choices[buttonLoop]);
+
+        if (questions[currentQuestion].choices[buttonLoop] == questions[currentQuestion].answer) {
+            buttonCode = buttonCode.replace("[ANS]", "correct()");
+
+        } else {
+            buttonCode = buttonCode.replace("[ANS]", "wrong!()");
+        }
+        quizContent += buttonCode
+    }
+    document.getElementById("quiz").innerHTML = quizContent;
+
 }
 
-function displayquestion() {
-	if (questionindex < 4) {
-		document.getElementById('main').innerHTML = '';
+// If the timer runs out, or the user has completed all the questions we need that function endGame.
 
-		var current = questions[questionindex];
+function endGame() {
+    clearInterval(timer);
 
-		var question = document.createElement('h2');
-		question.textContent = current.question;
-		questionElement.appendChild(question);
+    var quizContent = `
+        <h2>Game over!</h2>
+        <h3>You got a ` + score + ` /50!</h3>
+        <h3>That means you got ` + score / 10 + ` questions correct!</h3>
+        <input type="text" id="name" placeholder="Please enter your initals">
+        <button onclick="inputScore()">Set score!</button>`;
 
-		var a = document.createElement('p');
-		a.textContent = current.a;
-		questionElement.appendChild(a);
-
-		var b = document.createElement('p');
-		b.textContent = current.b;
-		questionElement.appendChild(b);
-
-		var c = document.createElement('p');
-		c.textContent = current.c;
-		questionElement.appendChild(c);
-
-		var d = document.createElement('p');
-		d.textContent = current.d;
-		questionElement.appendChild(d);
-
-		a.addEventListener('click', anwserCheck);
-		b.addEventListener('click', anwserCheck);
-		c.addEventListener('click', anwserCheck);
-		d.addEventListener('click', anwserCheck);
-	} else {
-		score();
-	}
+        document.getElementById("quiz").innerHTML = quizContent;
 }
 
-function displayHighScores() {}
-
-function anwserCheck() {
-	console.log(this);
-	if (questions[questionindex].answer === this.textContent) {
-		console.log('correct');
-		questionindex++;
-		console.log(questionindex);
-		displayquestion();
-	} else {
-		console.log('incorrect');
-		questionindex++;
-		console.log(questionindex);
-		timeLeft -= 10;
-		displayquestion();
-	}
+// We want the user to input a high score.  So we create a function that will allow us to use the local Storage to keep items so that they can compare. 
+function inputScore(){
+    var highscore = localStorage.getItem("highscore");
+    if(score > highscore){
+    localStorage.setItem("highscore", score);
+    localStorage.setItem("highscoreName", document.getElementById("name").value);
+    }else {
+        localStorage.getItem("highscore");
+        localStorage.getItem("highscoreName")
+        }   
+    answerMenu.textContent = "";
+    getScore();
 }
 
-function score() {
-	document.getElementById('main').innerHTML = '';
+// We need to calculate the score that the user got.  
+function getScore() {
+    
+    var quizContent = 
+    `<h2>` + localStorage.getItem("highscoreName") + `'s highscore is:</h2>
+    <h1>` + localStorage.getItem("highscore") + `</h1><br>
+    <button onclick="clearScore()">Clear score</button><button onclick="clearGame()">Play again!</button> `;
 
-	var scoreText = document.createElement('h3');
-	scoreText.innerHTML = 'Score: ' + timeLeft;
-	scoreElement.appendChild(scoreText);
-	if (timeLeft < 0) {
-		scoreText.innerHTML = 'Score: 0';
-		timeLeft = 0;
-	}
-
-	initial = document.createElement('input');
-	scoreElement.appendChild(initial);
-
-	var submit = document.createElement('button');
-	submit.innerHTML = 'Submit';
-	scoreElement.appendChild(submit);
-
-	submit.onclick = saveScore;
+    document.getElementById("quiz").innerHTML = quizContent;
 }
 
-function saveScore() {
-	var userscore = {
-		name: initial.value,
-		fs: timeLeft,
-	};
-	highscores.push(userscore);
-	window.localStorage.setItem('highscores', JSON.stringify(highscores));
-	console.log('This is saved!');
-	console.log(initial, timeLeft);
-	document.getElementById('main').innerHTML = '';
-	timeLeft = 55;
-	questionindex = 0;
+// We want to be able to clear the high scores
+function clearScore() {
+    localStorage.setItem("highscore", "");
+    localStorage.setItem("highscoreName", "");
+
+    clearGame();
 }
 
-var viewscore = document.querySelector('.highScore');
-viewscore.addEventListener('click', loadScore);
-function loadScore() {
-	for (var i = 0; i < highscores.length; i++) {
-		var n = document.createElement('h4');
+// Do we want to play again.  We can start over.
+function clearGame(){
+    clearInterval(timer);
+    score = 0;
+    currentQuestion = -1;
+    timeLeft = 0;
+    timer = null;
 
-		var currentHighscore = highscores[i];
+    document.getElementById("timeLeft").innerHTML = timeLeft;
 
-		n.textContent = currentHighscore.name + ' - ' + currentHighscore.fs;
+    var quizContent = `
+    <h1>
+        Coding Quiz!
+    </h1>
+    <h3>
+        Click Start to play!
+    </h3>
+    <button onclick="start()">Start!</button>`;
 
-		scoreElement.appendChild(n);
-	}
+    document.getElementById("quiz").innerHTML = quizContent;
 }
 
-var highscores = JSON.parse(localStorage.getItem('highscores')) || [];
+// When the user is answering questions. They will be presented this if there answer is not the correct one.  We also need to penalize the timer as mentioned before the quiz begain.
+function wrong(){
+    answerMenu.setAttribute("class", "border-top mt-3 pt-3")
+    answerMenu.setAttribute("style", "font-size: 20px; color: white; font-weight: bold; text-align: center;");
+    answerMenu.textContent = "You got the answer wrong.";
+    timeLeft -= 15;
+    next()
+}
 
-startButton.onclick = startQuiz;
+// When the user is answering questions. They will get points if the answer is correct. So we need to tell them they got it right, in addition adding points to their total score.
+function correct(){
+    answerMenu.setAttribute("class", "border-top mt-3 pt-3")
+    answerMenu.setAttribute("style", "font-size: 20px; color: white; font-weight: bold; text-align: center;");
+    answerMenu.textContent = "You got the answer right!";
+    score += 10;
+    next();
+    
+}
+
