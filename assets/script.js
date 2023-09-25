@@ -112,4 +112,11 @@ function getScore() {
     document.getElementById("quiz").innerHTML = quizContent;
 }
 
+// We want to be able to clear the high scores
+function clearScore() {
+    localStorage.setItem("highscore", "");
+    localStorage.setItem("highscoreName", "");
+
+    clearGame();
+}
 
