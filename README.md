@@ -14,7 +14,7 @@ line 1 there was this, line 2, that, and so on and so forth.  It allowed for fun
 also change the game or even display different information.
 
 A big challenge for me was figuring out how to implement keeping scores and displaying them in a user friendly fashion.  I haven't tried it before, but this project,
-I dove into chat GPT for some assistance, and it really helped me learned how to make things work.
+I dove into chat GPT for some assistance, and it really helped me learned how to make things work.  
 
 ## Installation
 Deployed at https://slemjosh.github.io/code-quiz
