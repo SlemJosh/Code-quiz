@@ -120,3 +120,26 @@ function clearScore() {
     clearGame();
 }
 
+// Do we want to play again.  We can start over.
+function clearGame(){
+    clearInterval(timer);
+    score = 0;
+    currentQuestion = -1;
+    timeLeft = 0;
+    timer = null;
+
+    document.getElementById("timeLeft").innerHTML = timeLeft;
+
+    var quizContent = `
+    <h1>
+        Coding Quiz!
+    </h1>
+    <h3>
+        Click Start to play!
+    </h3>
+    <button onclick="start()">Start!</button>`;
+
+    document.getElementById("quiz").innerHTML = quizContent;
+}
+
+
