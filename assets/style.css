@@ -2,7 +2,9 @@
 body {
     font-family: 'Skranji', cursive, sans-serif;
 }
-
+h1,h2,h4 {
+    font-weight: 100;
+}
 
 /* Header Content */
 .headerBox {
@@ -15,6 +17,7 @@ body {
 }
 
 /* Navigation Bars */
+
 .navLeft {
     float: left;
 }
