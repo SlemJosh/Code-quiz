@@ -86,3 +86,17 @@ function endGame() {
 
         document.getElementById("quiz").innerHTML = quizContent;
 }
+
+// We want the user to input a high score.  So we create a function that will allow us to use the local Storage to keep items so that they can compare. 
+function inputScore(){
+    var highscore = localStorage.getItem("highscore");
+    if(score > highscore){
+    localStorage.setItem("highscore", score);
+    localStorage.setItem("highscoreName", document.getElementById("name").value);
+    }else {
+        localStorage.getItem("highscore");
+        localStorage.getItem("highscoreName")
+        }   
+    answerMenu.textContent = "";
+    getScore();
+}
