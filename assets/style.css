@@ -1,40 +1,49 @@
+/* Styles that we want used to the entire body section, such as our font family */
+body {
+    font-family: 'Skranji', cursive, sans-serif;
+}
+
+
 /* Header Content */
-.headerBox{
+.headerBox {
     display: block;
     background-color: white;
     display: inline-block;
     width: 95vw;
     margin: 5px;
     padding: 10px;
-    font-family: 'Skranji', cursive, sans-serif;
 }
 
 /* Navigation Bars */
-.navLeft{
-    float:left;
+.navLeft {
+    float: left;
 }
 
-.navRight{
-    float:right;
+.navRight {
+    float: right;
 }
 
-.highScore{
+.highScore {
     text-decoration: none;
-    color:black;
+    color: black;
 }
 
-.highScore:hover{
+.highScore:hover {
     box-shadow: inset 100px 0 0 0 #54b3d6;
     color: gold;
 }
 
 /* Main Body Content */
 
-body{
-    font-family: 'Skranji', cursive, sans-serif; 
+.container {
+    width: 50%;
+    margin: auto;
 }
 
-.container{
-    width:50%;
-    margin: auto;
+#quiz{
+    text-align:center;
+    justify-content: center;
+    padding: 12vh;
+    margin-top: 20vh;
+
 }
