@@ -66,7 +66,7 @@ var questions = [
 
 function start() {
     // We first need to set the time limit. Based on the number of questions this will change.  
-    timeLeft = 90;
+    timeLeft = 60;
     // Pushing that timer over to our HTML
     showTime.innerHTML = timeLeft
     // Need our timer to be counting down until 0.  At 0, we call a new function endGame.  As long as the timer is above 0, it will go onto another function nextQuestion.
@@ -123,6 +123,7 @@ function endGame() {
         <button onclick="inputScore()">Set score!</button>`;
 
     document.getElementById("quiz").innerHTML = quizContent;
+    clearAnswerOptions();
 }
 
 // We want the user to input a high score.  So we create a function that will allow us to use the local Storage to keep items so that they can compare. 
@@ -135,30 +136,20 @@ function inputScore() {
     highScores.push(scoreEntry);
 
     localStorage.setItem("highScores", JSON.stringify(highScores));
+    localStorage.setItem("initials", initials);
+    
 
-    answerOptions.textContent = "";
     getScore();
     
 }
 
-
-//Chat GPT helping save those scores
-
-function saveHighScore(name, score) {
-    var highScores = getHighScores();
-    highScores.push({ name: name, score: score });
-    highScores.sort(function (a, b) {
-        return b.score - a.score;
-    });
-    localStorage.setItem("highScores", JSON.stringify(highScores));
-}
-
-
 // We need to calculate the score that the user got.  
 function getScore() {
+    var storedInitials = localStorage.getItem("initials");
+    var highScore = localStorage.getItem("highScore");
 
     var quizContent =
-        `<h2>` + localStorage.getItem("initialsEl") + ` has the current highscore at:</h2>
+    `<h2>` + localStorage.getItem("initials") + ` has the current highscore at:</h2>
     <h1>` + localStorage.getItem("highScore") + `</h1><br>
     <button onclick="clearScore()">Clear score</button><button onclick="clearGame()">Play again!</button> `;
 
@@ -166,10 +157,24 @@ function getScore() {
 }
 
 
+
+//Chat GPT helping save those scores
+
+function saveHighScore(initials, score) {
+    var highScores = getHighScores();
+    highScores.push({ name: initials, score: score });
+    highScores.sort(function (a, b) {
+        return b.score - a.score;
+    });
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
+
+
 // We want to be able to clear the high scores
 function clearScore() {
     localStorage.setItem("highScore", "");
-    localStorage.setItem("initialsEl", "");
+    localStorage.setItem("initials", "");
 
     clearGame();
 }
@@ -202,6 +207,8 @@ function wrong() {
     answerOptions.textContent = "You got the answer wrong. -15 seconds!";
     timeLeft -= 10;
     nextQuestion()
+
+    setTimeout(clearAnswerOptions, 2000);
 }
 
 // When the user is answering questions. They will get points if the answer is correct. So we need to tell them they got it right, in addition adding points to their total score.
@@ -211,6 +218,8 @@ function correct() {
     answerOptions.textContent = "You got the answer right! +10 points!";
     score += 10;
     nextQuestion();
+
+    setTimeout(clearAnswerOptions, 2000);
 
 }
 // Chat GPT helping me get those high scores displayed
@@ -233,7 +242,14 @@ function displayHighScores() {
     }
 }
 
-// Call the displayHighScores function when the page loads
 window.onload = function () {
     displayHighScores();
-};
+    };
+
+
+    //  CHAT GPT clear answer options section after each question.
+
+    function clearAnswerOptions() {
+        answerOptions.textContent = "";
+    }
+    
