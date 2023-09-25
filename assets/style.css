@@ -45,5 +45,15 @@ body {
     justify-content: center;
     padding: 12vh;
     margin-top: 20vh;
+}
 
+button{
+    border: none;
+    background-color: purple;
+    color: white;
+    font-weight: bolder;
+    border-radius: 5px;
+    padding: 10px 16px 10px 16px;
+    font-size: 25px;
+    margin: 15px 15px 15px 15px;
 }
