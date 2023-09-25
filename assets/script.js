@@ -14,3 +14,14 @@ var questions = [
     }
 ]
 
+// Other variables we will be using, however they will be used more regularly and dependant on other factors, such as the timer or the score.
+
+var answerOptions = docmument.querySelector("answerOptions")
+var showTime = document.querySelector("timeLeft")
+var score = 0;
+var currentQuestiopn = -1;
+var timeLeft = 0;
+var timer;
+
+// Here's where we initiate the game after hitting our button on the page.  The button is already primed to start a function called start, so we need a function with that name.
+
