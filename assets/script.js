@@ -150,7 +150,7 @@ function endGame() {
     // We want to show the user their score, and give them a place to enter some initials which we will store upon them hitting a button.
     var quizContent = `
         <h2>Game over!</h2>
-        <h3>You got a ` + score + ` /90!</h3>
+        <h3>You got a ` + score + ` /90!</h3>   
         <h3>You got ` + score / 10 + ` questions correct!</h3>
         <input type="text" id="initials" placeholder="Please enter your initals">
         <button onclick="inputScore()">Save Your Score!</button>`;
@@ -159,8 +159,10 @@ function endGame() {
     clearAnswerOptions();
 }
 
+// Score Time
 // In the previous function we had the user input some information.  We need to put that somewhere, and the previous function will call this next one to run.
 // Here we are taking the intials and the score and adding them to a string to which we can use to populate our high scores page.
+// Based on the button we provided in the previous function, we are using this new function to store the data.
 
 function inputScore() {
     var initials = document.getElementById("initials").value;
@@ -173,28 +175,16 @@ function inputScore() {
     localStorage.setItem("highScores", JSON.stringify(highScores));
     localStorage.setItem("initials", initials);
     
-
-    getScore();
+    sayGoodbye(); // This will call for our final function.
     
 }
-
-// We need to calculate the score that the user got.  
-function getScore() {
-    var storedInitials = localStorage.getItem("initials");
-    var highScore = localStorage.getItem("highScores");
-
-    var quizContent =
-    `<h2>` + ` Thanks for Playing!</h2>
-    <h1>` + 'Dont Forget to Check out the High Scores' + `</h1><br>
-    <button onclick="clearGame()">Play again!</button> `;
-
-    document.getElementById("quiz").innerHTML = quizContent;
+// We want to take those scores from our previous function and pull them from the string they were put in.
+function getHighscores() {
+    var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    return highScores;
 }
 
-
-
-//Chat GPT helping save those scores
-
+ // Now that we have the data, we want to start populating the list so we can display it on a new html page created just for the highscores.
 function saveHighscores(initials, score) {
     var highScores = getHighscores();
     highScores.push({ name: initials, score: score });
@@ -203,23 +193,40 @@ function saveHighscores(initials, score) {
     });
     localStorage.setItem("highScores", JSON.stringify(highScores));
 }
+// We built an unordered list on our highscores html page, and now we want to display all the items being stored.
+function displayHighscores() {
+    var highScoreslist = document.getElementById("highScoreslist");
+    var highScores = getHighscores();
 
-
-
-// We want to be able to clear the high scores
+    // Loop through high scores and add them to the list
+    for (var i = 0; i < highScores.length; i++) {
+        var listItem = document.createElement("li");
+        listItem.textContent = highScores[i].name + " - " + highScores[i].score;
+        highScoreslist.appendChild(listItem);
+    }
+}
+// Not only do we want people to be able to view the scores, we want them to be able to clear them as well.  It's important to not just clear the page, but to also clear the items being stored in the local storage.
 function clearHighscores() {
     var highScoreslist = document.getElementById("highScoreslist");
     highScoreslist.innerHTML = ""; // This removes all the list items
     localStorage.removeItem("highScores");
 }
 
-// Attach this function to the button's click event in your HTML
-//document.querySelector("#clearHighscoresbutton").addEventListener("click", clearHighscores);
 
+//This function will run after we receive all the data we need for score keeping.  It will then giv ethe user options to play again by calling a function startOver
 
+function sayGoodbye() {
+    var quizContent =
+    `<h2>` + ` Thanks for Playing!</h2>
+    <h1>` + 'Dont Forget to Check out the High Scores' + `</h1><br>
+    <button onclick="startOver()">Play again!</button> `;
 
-// Do we want to play again.  We can start over.
-function clearGame() {
+    document.getElementById("quiz").innerHTML = quizContent;
+}
+
+// We basically can loop our game by having it present this option.
+// We reset the clock, we set the score to 0, the current question to just before our first question.  The user will need to hit the start button to start the program over again.
+function startOver() {
     clearInterval(timer);
     score = 0;
     currentQuestion = -1;
@@ -237,31 +244,3 @@ function clearGame() {
 
     document.getElementById("quiz").innerHTML = quizContent;
 }
-
-// Chat GPT helping me get those high scores displayed
-
-
-function getHighscores() {
-    var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-    return highScores;
-}
-
-function displayHighscores() {
-    var highScoreslist = document.getElementById("highScoreslist");
-    var highScores = getHighscores();
-
-    // Loop through high scores and add them to the list
-    for (var i = 0; i < highScores.length; i++) {
-        var listItem = document.createElement("li");
-        listItem.textContent = highScores[i].name + " - " + highScores[i].score;
-        highScoreslist.appendChild(listItem);
-    }
-}
-
-
-    //  CHAT GPT clear answer options section after each question.
-
-    function clearAnswerOptions() {
-        answerOptions.textContent = "";
-    }
-    
