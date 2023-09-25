@@ -1,3 +1,4 @@
+/* Header Content */
 .headerBox{
     display: block;
     background-color: white;
@@ -8,10 +9,24 @@
     font-family: 'Skranji', cursive;
 }
 
+/* Navigation Bars */
 .navLeft{
     float:left;
 }
+
 .navRight{
     float:right;
 }
+
+.highScore{
+    text-decoration: none;
+    color:black;
+}
+
+.highScore:hover{
+    box-shadow: inset 100px 0 0 0 #54b3d6;
+    color: gold;
+}
+
+/* Main Body Content */
 
