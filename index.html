@@ -9,17 +9,31 @@
 </head>
 <body>
     <!--Header-->
+    <!--Our header is mostly a navigation bar, we want on the left the highscores, and a running timer on the right side.-->
     <header class="headerBox">
         <nav class="navLeft">
             <a class="highScore" onclick="getScore()" href="#">
-                <h4 class="viewHighscore">View High Scores!</h4>
+                <h2 class="viewHighscore">View High Scores!</h2>
             </a>
         </nav>
         <nav class="navRight">
-            <h3>Time: <span id="timeLeft">0</span></h3>
+            <h2>Time: <span id="timeLeft">0</span></h2>
         </nav>
     </header>
 
     <!--Main Body-->
+    <!--This is where we will put the box that has all the questions and answers.-->
+    <section class="container">
+        <div id="quiz">
+            <h1>Coding Quiz Challenge</h1>
+            <h4>Try to answer the following code-related questiones within the time limit.<br>
+                Keep in mind that incorrect answers will penalize your score/time by ten seconds!<br>
+                Good luck! Hit Start to begin!</h4>
+            <button onclick="start()">Start!</button>
+        </div>
+        <div id="answerOptions">
+
+        </div>
+    </section>
 </body>
 </html>
