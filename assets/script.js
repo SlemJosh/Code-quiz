@@ -203,7 +203,7 @@ function clearGame() {
 // When the user is answering questions. They will be presented this if there answer is not the correct one.  We also need to penalize the timer as mentioned before the quiz begain.
 function wrong() {
     answerOptions.setAttribute("class", "border-top mt-3 pt-3")
-    answerOptions.setAttribute("style", "font-size: 20px; color: black; font-weight: bold; text-align: center;");
+    answerOptions.setAttribute("style", "font-size: 20px; color: red; font-weight: bold; text-align: center;");
     answerOptions.textContent = "You got the answer wrong. -15 seconds!";
     timeLeft -= 10;
     nextQuestion()
@@ -214,7 +214,7 @@ function wrong() {
 // When the user is answering questions. They will get points if the answer is correct. So we need to tell them they got it right, in addition adding points to their total score.
 function correct() {
     answerOptions.setAttribute("class", "border-top mt-3 pt-3")
-    answerOptions.setAttribute("style", "font-size: 20px; color: black; font-weight: bold; text-align: center;");
+    answerOptions.setAttribute("style", "font-size: 20px; color: green; font-weight: bold; text-align: center;");
     answerOptions.textContent = "You got the answer right! +10 points!";
     score += 10;
     nextQuestion();
