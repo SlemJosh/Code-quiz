@@ -26,5 +26,20 @@ var timer;
 // Here's where we initiate the game after hitting our button on the page.  The button is already primed to start a function called start, so we need a function with that name.
 
 function start(){
-    
+    // We first need to set the time limit. Based on the number of questions this will change.  But we are setting a base timer of 60 seconds to begin with.
+    timeLeft = 60;
+    // Pushing that timer over to our HTML
+    showTime.innerHTML = timeLeft
+    // Need our timer to be counting down until 0.  At 0, we call a new function endGame.  As long as the timer is above 0, it will go onto another function nextQuestion.
+    timer = setInterval(function(){
+        timeLeft --;
+        showTime.innerHTML = timeLeft
+        
+        if (timeLeft <= 0){
+            clearInterval(timer)
+            endGame()
+        }
+    },1000)
+    next()
 }
+
