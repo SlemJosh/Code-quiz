@@ -6,7 +6,7 @@
     width: 95vw;
     margin: 5px;
     padding: 10px;
-    font-family: 'Skranji', cursive;
+    font-family: 'Skranji', cursive, sans-serif;
 }
 
 /* Navigation Bars */
@@ -30,3 +30,11 @@
 
 /* Main Body Content */
 
+body{
+    font-family: 'Skranji', cursive, sans-serif; 
+}
+
+.container{
+    width:50%;
+    margin: auto;
+}
