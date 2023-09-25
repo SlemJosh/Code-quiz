@@ -100,3 +100,16 @@ function inputScore(){
     answerMenu.textContent = "";
     getScore();
 }
+
+// We need to calculate the score that the user got.  
+function getScore() {
+    
+    var quizContent = 
+    `<h2>` + localStorage.getItem("highscoreName") + `'s highscore is:</h2>
+    <h1>` + localStorage.getItem("highscore") + `</h1><br>
+    <button onclick="clearScore()">Clear score</button><button onclick="clearGame()">Play again!</button> `;
+
+    document.getElementById("quiz").innerHTML = quizContent;
+}
+
+
