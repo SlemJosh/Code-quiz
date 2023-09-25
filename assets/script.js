@@ -179,7 +179,7 @@ function clearHighscores() {
 }
 
 // Attach this function to the button's click event in your HTML
-document.querySelector("#clearHighscoresbutton").addEventListener("click", clearHighscores);
+//document.querySelector("#clearHighscoresbutton").addEventListener("click", clearHighscores);
 
 
 

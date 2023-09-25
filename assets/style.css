@@ -17,6 +17,7 @@ h1,h2,h4 {
 }
 
 /* Navigation Bars */
+/* For the navigation bar, our styling was simple.  put the highscores to the left, and the timer to to the right.  While we did add some styling to our highscores because it will also become a link, we mostly left the time untouched */
 
 .navLeft {
     float: left;
@@ -37,10 +38,14 @@ h1,h2,h4 {
 }
 
 /* Main Body Content */
+/* This is our box that will contain the quiz. It has several parts to it.  The actual #quiz content, will be altered in the javascript as we go through it. */
 
 .container {
     width: 50%;
     margin: auto;
+    background-color: lightskyblue;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px;
 }
 
 #quiz{
@@ -49,7 +54,7 @@ h1,h2,h4 {
     padding: 12vh;
     margin-top: 20vh;
 }
-
+/*Button styling.  Thought we might as well turn the button green for Go when the user hits start.*/
 button{
     border: none;
     background-color: purple;
@@ -58,7 +63,7 @@ button{
     border-radius: 5px;
     padding: 10px 16px 10px 16px;
     font-size: 25px;
-    margin: 15px 15px 15px 15px;
+    margin: 15px;
 }
 
 button:hover{
@@ -66,9 +71,13 @@ button:hover{
     background-color: green;
 }
 
+/* Styling for our box on our highscores.html page.  We want it to be central and styled simliarliary to the other page*/
 .container2{
     width: 50%;
     margin: auto;
+    background-color: lightskyblue;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px;
     text-align:center;
     justify-content: center;
     padding: 12vh;
