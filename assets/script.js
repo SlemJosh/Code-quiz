@@ -99,7 +99,7 @@ function nextQuestion() {
         buttonCode = buttonCode.replace("[CHOICE]", questions[currentQuestion].choices[buttonLoop]);
 
         if (questions[currentQuestion].choices[buttonLoop] == questions[currentQuestion].answer) {
-            buttonCode = buttonCode.replace("[ANS]", "correct()");
+            buttonCode = buttonCode.replace("[ANS]", "right()");
 
         } else {
             buttonCode = buttonCode.replace("[ANS]", "wrong()");
@@ -212,7 +212,7 @@ function wrong() {
 }
 
 // When the user is answering questions. They will get points if the answer is correct. So we need to tell them they got it right, in addition adding points to their total score.
-function correct() {
+function right() {
     answerOptions.setAttribute("class", "border-top mt-3 pt-3")
     answerOptions.setAttribute("style", "font-size: 20px; color: green; font-weight: bold; text-align: center;");
     answerOptions.textContent = "You got the answer right! +10 points!";
