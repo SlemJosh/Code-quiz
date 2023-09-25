@@ -142,4 +142,12 @@ function clearGame(){
     document.getElementById("quiz").innerHTML = quizContent;
 }
 
+// When the user is answering questions. They will be presented this if there answer is not the correct one.  We also need to penalize the timer as mentioned before the quiz begain.
+function wrong(){
+    answerMenu.setAttribute("class", "border-top mt-3 pt-3")
+    answerMenu.setAttribute("style", "font-size: 20px; color: white; font-weight: bold; text-align: center;");
+    answerMenu.textContent = "You got the answer wrong.";
+    timeLeft -= 15;
+    next()
+}
 
