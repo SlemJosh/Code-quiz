@@ -1,6 +1,17 @@
+.headerBox{
+    display: block;
+    background-color: white;
+    display: inline-block;
+    width: 95vw;
+    margin: 5px;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
 .navLeft{
     float:left;
 }
 .navRight{
     float:right;
 }
+
