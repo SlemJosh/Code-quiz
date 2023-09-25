@@ -120,7 +120,7 @@ function endGame() {
         <h3>You got a ` + score + ` /90!</h3>
         <h3>You got ` + score / 10 + ` questions correct!</h3>
         <input type="text" id="initials" placeholder="Please enter your initals">
-        <button onclick="inputScore()">Set score!</button>`;
+        <button onclick="inputScore()">Save Your Score!</button>`;
 
     document.getElementById("quiz").innerHTML = quizContent;
     clearAnswerOptions();
@@ -146,12 +146,12 @@ function inputScore() {
 // We need to calculate the score that the user got.  
 function getScore() {
     var storedInitials = localStorage.getItem("initials");
-    var highScore = localStorage.getItem("highScore");
+    var highScore = localStorage.getItem("highScores");
 
     var quizContent =
-    `<h2>` + localStorage.getItem("initials") + ` has the current highscore at:</h2>
-    <h1>` + localStorage.getItem("highScore") + `</h1><br>
-    <button onclick="clearScore()">Clear score</button><button onclick="clearGame()">Play again!</button> `;
+    `<h2>` + ` Thanks for Playing!</h2>
+    <h1>` + 'Dont Forget to Check out the High Scores' + `</h1><br>
+    <button onclick="clearGame()">Play again!</button> `;
 
     document.getElementById("quiz").innerHTML = quizContent;
 }
@@ -160,8 +160,8 @@ function getScore() {
 
 //Chat GPT helping save those scores
 
-function saveHighScore(initials, score) {
-    var highScores = getHighScores();
+function saveHighscores(initials, score) {
+    var highScores = getHighscores();
     highScores.push({ name: initials, score: score });
     highScores.sort(function (a, b) {
         return b.score - a.score;
@@ -172,12 +172,15 @@ function saveHighScore(initials, score) {
 
 
 // We want to be able to clear the high scores
-function clearScore() {
-    localStorage.setItem("highScore", "");
-    localStorage.setItem("initials", "");
-
-    clearGame();
+function clearHighscores() {
+    var highScoreslist = document.getElementById("highScoreslist");
+    highScoreslist.innerHTML = ""; // This removes all the list items
+    localStorage.removeItem("highScores");
 }
+
+// Attach this function to the button's click event in your HTML
+document.querySelector("#clearHighscoresbutton").addEventListener("click", clearHighscores);
+
 
 
 // Do we want to play again.  We can start over.
@@ -225,14 +228,14 @@ function right() {
 // Chat GPT helping me get those high scores displayed
 
 
-function getHighScores() {
+function getHighscores() {
     var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
     return highScores;
 }
 
-function displayHighScores() {
+function displayHighscores() {
     var highScoreslist = document.getElementById("highScoreslist");
-    var highScores = getHighScores();
+    var highScores = getHighscores();
 
     // Loop through high scores and add them to the list
     for (var i = 0; i < highScores.length; i++) {
@@ -241,10 +244,6 @@ function displayHighScores() {
         highScoreslist.appendChild(listItem);
     }
 }
-
-window.onload = function () {
-    displayHighScores();
-    };
 
 
     //  CHAT GPT clear answer options section after each question.
