@@ -19,7 +19,7 @@ var questions = [
 var answerOptions = docmument.querySelector("answerOptions")
 var showTime = document.querySelector("timeLeft")
 var score = 0;
-var currentQuestiopn = -1;
+var currentQuestion = -1;
 var timeLeft = 0;
 var timer;
 
@@ -40,6 +40,23 @@ function start(){
             endGame()
         }
     },1000)
-    next()
+    nextQuestion()
 }
 
+// This is the function that will run as long as there is time still running on the clock
+function nextQuestion(){
+
+    currentQuestion ++;
+    // We need to establish that once we hit the end of the quiz, regardless of what time remains, we need to call the endGame function to run.
+    if (currentQuestion > questions.length -1){
+        endGame()
+        return;
+    }
+}
+
+var quizContent = "<h2>" + questions[currentQuestion].title + "<h2>"
+
+for (var buttonLoop = 0; buttonLoop < questions[currentQuestion].choices.length; buttonLoop++){
+    var buttonCode = "<button onclick='[ANS]'>[CHOICE]</button>"; 
+    buttonCode = buttonCode.replace("[CHOICE]", questions[currentQuestion].choices[buttonLoop]);    
+}
