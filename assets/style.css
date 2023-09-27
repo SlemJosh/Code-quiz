@@ -83,3 +83,49 @@ button:hover{
     padding: 12vh;
     margin-top: 20vh;
 }
+
+/* Media Screens to change the format for smaller screens.*/
+@media screen and (max-width: 768px) {
+ 
+    body {
+        font-size: 16px;
+    }
+
+    .headerBox {
+        width: 90vw;
+        padding: 8px;
+    }
+
+    .container {
+        width: 80%;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 20px;
+        padding: 8px 12px;
+    }
+
+}
+
+/* For even smaller screens like aphone*/
+@media screen and (max-width: 480px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    .headerBox {
+        width: 85vw;
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    button {
+        font-size: 18px;
+        padding: 6px 10px;
+    }
+
+}
